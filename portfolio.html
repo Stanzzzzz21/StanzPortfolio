@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stanz Portfolio</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: "Consolas", monospace;
+    background: #000;
+    color: #00ffcc;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    background: rgba(0,0,0,0.8);
+    border-top: 1px solid #00ffcc;
+    color: #00ffcc;
+    font-size: 0.9rem;
+    text-shadow: 0 0 5px #00ffcc;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#bgCanvas {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index:-1;
+}
+
+/* MAIN PAGE */
+#main {
+    padding:80px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* MAIN BOX */
+.main-box {
+    background: rgba(0,0,0,0.75);
+    border:2px solid #00ffcc;
+    border-radius:20px;
+    padding:50px 40px;
+    max-width:900px;
+    width:90%;
+    margin:50px auto;
+    box-shadow:0 0 40px rgba(0,255,204,0.4);
+    text-align:center;
+    backdrop-filter: blur(100px);
+}
+
+.main-box h1 {
+    font-size:3rem;
+    margin-bottom:15px;
+    text-shadow:0 0 25px #00ffcc;
+}
+.main-box p {
+    font-size:1.5rem;
+    margin-bottom:40px;
+    text-shadow:0 0 15px #00ffcc;
+}
+
+/* SECTIONS */
+.section {
+    background: rgba(0,0,0,0.5);
+    border:1px solid #00ffcc;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:20px;
+    transition:0.3s;
+}
+.section:hover {
+    box-shadow:0 0 25px #00ffcc;
+    transform: translateY(-5px);
+}
+.section h2 {
+    margin-bottom:10px;
+    font-size:1.5rem;
+    text-shadow:0 0 10px #00ffcc;
+}
+.section p {
+    font-size:1rem;
+    line-height:1.6;
+}
+
+/* FADE IN */
+.fade { opacity:0; transform:translateY(40px); transition:1s; }
+.fade.show { opacity:1; transform:translateY(0); }
+
+/* RESPONSIVE */
+@media(max-width:600px){
+    .main-box { padding:50px 20px; }
+    .main-box h1 { font-size:2rem; }
+    .main-box p { font-size:1.9rem; }
+    .section h2 { font-size:1.2rem; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- MAIN -->
+<div id="main">
+    <div class="main-box fade">
+        <h1>👋 Hi there, im Stan 👋</h1>
+        <p>Stanz portfolio</p>
+
+        <div class="section fade">
+            <h2><b>About me:</b></h2>
+            <ul> <li>New CSS and HTML scripter </li> <li>Gamer; I like Rainbow Six Siege! </li> </ul>
+        </div>
+
+        <h2><u>Question of the week:</u></h2> 
+        <p><i>"What is one professional skill you'd like to learn or improve this year?"</i></p>
+
+<h2><u>Song of the week:</u></h2> 
+        <p><i>Euphoria by Kendrick Lamar</i></p
+<small> ⚠️<i>  Custom build website excluding some effects and animated backround, QOTW and SOFTW are chosen by AI.  </I>⚠️</small> 
+    </div>
+</div>
+
+<footer id="footer">
+    &copy; 2026 Stanz Portfolio. All rights reserved; no part of this website may be leaked or copied.
+</footer>
+
+<script>
+// FADE IN ON SCROLL
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting) entry.target.classList.add("show");
+    });
+});
+document.querySelectorAll(".fade").forEach(el=>observer.observe(el));
+
+// BACKGROUND PARTICLES
+const canvas=document.getElementById("bgCanvas");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+const particles=[];
+for(let i=0;i<150;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        vx:(Math.random()-0.5)*2,
+        vy:(Math.random()-0.5)*1.2,
+        size:Math.random()*2+1
+    });
+}
+
+function animate(){
+    ctx.fillStyle="#000";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="#fff";
+
+    for(let p of particles){
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fill();
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>canvas.width)p.vx*=-1;
+        if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    }
+
+    ctx.strokeStyle="rgba(255,255,255,0.15)";
+    ctx.lineWidth=1;
+
+    for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+            let dx=particles[i].x-particles[j].x;
+            let dy=particles[i].y-particles[j].y;
+            let dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<120){
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x,particles[i].y);
+                ctx.lineTo(particles[j].x,particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
