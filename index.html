@@ -1,214 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stanz Portfolio</title>
+  <meta charset="UTF-8">
+  <title>Stan's Portfolio</title>
 
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-    font-family: "Consolas", monospace;
-    background: #000;
-    color: #00ffcc;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-#footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    background: rgba(0,0,0,0.8);
-    border-top: 1px solid #00ffcc;
-    color: #00ffcc;
-    font-size: 0.9rem;
-    text-shadow: 0 0 5px #00ffcc;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-}
-
-#bgCanvas {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    z-index:-1;
-}
-
-/* MAIN PAGE */
-#main {
-    padding:80px 20px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-/* MAIN BOX */
-.main-box {
-    background: rgba(0,0,0,0.75);
-    border:2px solid #00ffcc;
-    border-radius:20px;
-    padding:50px 40px;
-    max-width:900px;
-    width:90%;
-    margin:50px auto;
-    box-shadow:0 0 40px rgba(0,255,204,0.4);
-    text-align:center;
-    backdrop-filter: blur(100px);
-}
-
-.main-box h1 {
-    font-size:3rem;
-    margin-bottom:15px;
-    text-shadow:0 0 25px #00ffcc;
-}
-.main-box p {
-    font-size:1.5rem;
-    margin-bottom:40px;
-    text-shadow:0 0 15px #00ffcc;
-}
-
-/* SECTIONS */
-.section {
-    background: rgba(0,0,0,0.5);
-    border:1px solid #00ffcc;
-    border-radius:12px;
-    padding:25px;
-    margin-bottom:20px;
-    transition:0.3s;
-}
-.section:hover {
-    box-shadow:0 0 25px #00ffcc;
-    transform: translateY(-5px);
-}
-.section h2 {
-    margin-bottom:10px;
-    font-size:1.5rem;
-    text-shadow:0 0 10px #00ffcc;
-}
-.section p {
-    font-size:1rem;
-    line-height:1.6;
-}
-
-/* FADE IN */
-.fade { opacity:0; transform:translateY(40px); transition:1s; }
-.fade.show { opacity:1; transform:translateY(0); }
-
-/* RESPONSIVE */
-@media(max-width:600px){
-    .main-box { padding:50px 20px; }
-    .main-box h1 { font-size:2rem; }
-    .main-box p { font-size:1.9rem; }
-    .section h2 { font-size:1.2rem; }
-}
-</style>
-</head>
-
-<body>
-
-<canvas id="bgCanvas"></canvas>
-
-<!-- MAIN -->
-<div id="main">
-    <div class="main-box fade">
-        <h1>👋 Hi there, I'm Stan 👋</h1>
-        <p>Stanz portfolio</p>
-
-        <div class="section fade">
-            <h2><b>About me:</b></h2>
-            <ul> <li>New CSS and HTML scripter, still learning  </li> <li>Gamer; I like Rainbow Six Siege! </li> </ul>
-        </div>
-
-                <div class="section fade">
-            <h2><b>Games I like:</b></h2>
-           <h3></h3> <ul> <li>Rainbow Six Seiege </li> <li>GTA V</li> </ul> <li>War thunder</li> </ul> <li>FC26</li> </ul> <li>Rocket league</li> </ul> </h3>
-        </div>
-
-   
-        <h2><u>Question of the week:</u></h2> 
-        <p><i>"Whats your favourite song?"</i></p>
-            <h2><u>Song of the week:</u></h2> 
-        <p><i>Zombie by The Cranberries</i></p
-            
+  
 
 
-<small> ⚠️<i>  Custom build website excluding some effects and animated backround, QOTW and SOFTW are chosen by AI.  </I>⚠️</small> 
-    </div>
-</div>
+ <canvas id="c" style="position:fixed;top:0;left:0;z-index:-1;background:#031c15"></canvas>
 
-<footer id="footer">
-    &copy; 2026 Stanz Portfolio. All rights reserved; no part of this website may be leaked or copied.
-</footer>
 
 <script>
-// FADE IN ON SCROLL
-const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting) entry.target.classList.add("show");
+  const v=c.getContext('2d'), p=[];
+  const r=()=>{c.width=innerWidth;c.height=innerHeight};
+  window.onresize=r;r();
+
+  for(let i=0;i<100;i++)p.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:Math.random()-.5,vy:Math.random()-.5});
+
+  (function d(){
+    v.clearRect(0,0,c.width,c.height);
+    v.fillStyle='#9fdbbb';
+    p.forEach(i=>{
+      i.x=(i.x+i.vx+c.width)%c.width;
+      i.y=(i.y+i.vy+c.height)%c.height;
+      v.fillRect(i.x,i.y,2,2);
     });
-});
-document.querySelectorAll(".fade").forEach(el=>observer.observe(el));
-
-// BACKGROUND PARTICLES
-const canvas=document.getElementById("bgCanvas");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-
-const particles=[];
-for(let i=0;i<150;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        vx:(Math.random()-0.5)*2,
-        vy:(Math.random()-0.5)*1.2,
-        size:Math.random()*2+1
-    });
-}
-
-function animate(){
-    ctx.fillStyle="#000";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="#fff";
-
-    for(let p of particles){
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-        ctx.fill();
-        p.x+=p.vx; p.y+=p.vy;
-        if(p.x<0||p.x>canvas.width)p.vx*=-1;
-        if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    }
-
-    ctx.strokeStyle="rgba(255,255,255,0.15)";
-    ctx.lineWidth=1;
-
-    for(let i=0;i<particles.length;i++){
-        for(let j=i+1;j<particles.length;j++){
-            let dx=particles[i].x-particles[j].x;
-            let dy=particles[i].y-particles[j].y;
-            let dist=Math.sqrt(dx*dx+dy*dy);
-            if(dist<120){
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x,particles[i].y);
-                ctx.lineTo(particles[j].x,particles[j].y);
-                ctx.stroke();
-            }
-        }
-    }
-
-    requestAnimationFrame(animate);
-}
-animate();
+    requestAnimationFrame(d);
+  })();
 </script>
 
+  <style>
+    
+    body {
+      margin: 122;
+      font-family: Arial, sans-serif;
+      
+      color: #eaeaea;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    h2 {   /////---------------------------------///
+      margin-top: 30px;
+      font-size: 22px;
+      border-bottom: 2px solid #024619;
+      padding-bottom: 5px;
+    }
+
+    p {
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    ul {
+      padding-left: 20px;
+      color: #bbb;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+    
+    .button {
+      background-color: #ffffff;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      
+    }
+
+    
+
+    .highlight {
+      color: #ffffff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<style>
+  .my-button {
+    background-color: rgba(23, 97, 72, 0.308); 
+    color: rgb(255, 255, 255);              
+    padding: 10px 20px;     
+    border: none;           
+    border-radius: 20px;       
+              
+    font-size: 16px;           
+    
+  }
+</style>
+
+<style>
+div {
+ background: rgba(255, 255, 255, 0.04);
+ border: 1px solid rgba(0, 255, 170, 0.25);
+ backdrop-filter: blur(2px);
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.1);
+  width: 400px;
+  opacity: 0.7;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  opacity: 1;
+  border-radius: 30px;
+
+}
+</style>
+
+  <div class="container">
+    <h1 style="color: #00ffaa;" > 👋 Hi, I'm Stan 👋 </h1>
+    <p> -  A person.</p>
+
+    
+  <h2 style="color: #00ffaa;">About</h2>
+    <p> ..  </p>
+
+    <h2 style="color: #00ffaa;">Things I like</h2>
+  <button class="my-button" style="color: #00ffaa;">Gaming</button>
+  <button class="my-button" style="color: #00ffaa;">Coding</button>
+  <button class="my-button" style="color: #00ffaa;">Fanta</button>
+  <button class="my-button" style="color: #00ffaa;">Football</button>
+
+  <h2 style="color: #00ffaa; text-align: center; margin-top: 50px;">Song of the week:</h2> <button class="my-button" style="color: #00ffaa;"> 
+    <a href="https://open.spotify.com/track/0k2GOhqsrxDTAbFFSdNJjT" target="_blank"  style=" color: rgb(0, 174, 255);" >  Temperature - Sean Paul*</a>
+  </button>   
+<small style="color: rgba(0, 255, 170, 0.25);"><i> *Chosen by AI</i></small>
+  <h2 style="color: #00ffaa; text-align: center; margin-top: 50px;">Upcoming Holidays:</h2>
+  <button class="my-button" style="color: #00ffaa;">Italy</button> <button class="my-button" style="color: #00ffaa;">Bulgaria</button>
+  
+<p><i>                © 2026 Stan's Portfolio; all rights reserved.</i></p>
+  </div>
+
+ 
+
+
+  
+
+</div>
 </body>
 </html>
