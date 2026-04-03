@@ -2,20 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stan's Portfolio</title>
 
-  
-
-
- <canvas id="c" style="position:fixed;top:0;left:0;z-index:-1;background:#031c15"></canvas>
-
+  <canvas id="c" style="position:fixed;top:0;left:0;z-index:-1;background:#031c15"></canvas>
 
 <script>
   const v=c.getContext('2d'), p=[];
   const r=()=>{c.width=innerWidth;c.height=innerHeight};
-  window.onresize=r;r();
+  window.addEventListener('resize', r);
+  r();
 
-  for(let i=0;i<100;i++)p.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:Math.random()-.5,vy:Math.random()-.5});
+  for(let i=0;i<100;i++)p.push({
+    x:Math.random()*c.width,
+    y:Math.random()*c.height,
+    vx:Math.random()-.5,
+    vy:Math.random()-.5
+  });
 
   (function d(){
     v.clearRect(0,0,c.width,c.height);
@@ -29,131 +32,102 @@
   })();
 </script>
 
-  <style>
-    
-    body {
-      margin: 122;
-      font-family: Arial, sans-serif;
-      
-      color: #eaeaea;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 600px;
-      padding: 40px;
-    }
-
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-
-    h2 {   /////---------------------------------///
-      margin-top: 30px;
-      font-size: 22px;
-      border-bottom: 2px solid #024619;
-      padding-bottom: 5px;
-    }
-
-    p {
-      color: #bbb;
-      line-height: 1.6;
-    }
-
-    ul {
-      padding-left: 20px;
-      color: #bbb;
-    }
-
-    li {
-      margin: 5px 0;
-    }
-    
-    .button {
-      background-color: #ffffff;
-      color: #ffffff;
-      border: none;
-      padding: 10px 20px;
-      margin: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      
-    }
-
-    
-
-    .highlight {
-      color: #ffffff;
-      font-weight: bold;
-    }
-  </style>
-</head>
-
 <style>
-  .my-button {
-    background-color: rgba(23, 97, 72, 0.308); 
-    color: rgb(255, 255, 255);              
-    padding: 10px 20px;     
-    border: none;           
-    border-radius: 20px;       
-              
-    font-size: 16px;           
-    
-  }
-</style>
+body {
+  margin: 122px;
+  font-family: Arial, sans-serif;
+  color: #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-<style>
+/* Responsive container */
+.container {
+  max-width: 600px;
+  width: 90%;
+  padding: 20px;
+}
+
+/* Text scaling */
+h1 {
+  font-size: clamp(28px, 6vw, 40px);
+}
+
+h2 {
+  margin-top: 30px;
+  font-size: clamp(18px, 4vw, 22px);
+  border-bottom: 2px solid #024619;
+  padding-bottom: 5px;
+}
+
+p, li {
+  font-size: clamp(14px, 3.5vw, 16px);
+}
+
+.my-button {
+  background-color: rgba(23, 97, 72, 0.308); 
+  color: rgb(255, 255, 255);              
+  padding: 10px 20px;     
+  border: none;           
+  border-radius: 20px;       
+  font-size: 16px;
+  margin: 5px;
+}
+
+/* Make buttons wrap nicely on mobile */
+.container button {
+  display: inline-block;
+}
+
+/* Your glass box */
 div {
- background: rgba(255, 255, 255, 0.04);
- border: 1px solid rgba(0, 255, 170, 0.25);
- backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 170, 0.25);
+  backdrop-filter: blur(2px);
   box-shadow: 0 0 25px rgba(0, 255, 170, 0.1);
-  width: 400px;
-  opacity: 0.7;
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
-  margin: 10px;
+  margin: 10px auto;
   text-align: center;
-  opacity: 1;
   border-radius: 30px;
-
 }
 </style>
+</head>
 
-  <div class="container">
-    <h1 style="color: #00ffaa;" > 👋 Hi, I'm Stan 👋 </h1>
-    <p> -  A person.</p>
+<body>
 
-    
+<div class="container">
+  <h1 style="color: #00ffaa;"> 👋 Hi, I'm Stan 👋 </h1>
+  <p> -  A person.</p>
+
   <h2 style="color: #00ffaa;">About</h2>
-    <p style="color: #1ED49E;"> <b></b> I like games like GTA V, Rainbow Six Siege, FC26 & Forza. I also enjoy football 😊. </b> </p>
+  <p> ..  </p>
 
-    <h2 style="color: #00ffaa;">Things I like</h2>
+  <h2 style="color: #00ffaa;">Things I like</h2>
   <button class="my-button" style="color: #00ffaa;">Gaming</button>
   <button class="my-button" style="color: #00ffaa;">Coding</button>
   <button class="my-button" style="color: #00ffaa;">Fanta</button>
   <button class="my-button" style="color: #00ffaa;">Football</button>
 
-  <h2 style="color: #00ffaa; text-align: center; margin-top: 50px;">Song of the week:</h2> <button class="my-button" style="color: #00ffaa;"> 
-    <a href="https://open.spotify.com/track/0k2GOhqsrxDTAbFFSdNJjT" target="_blank"  style=" color: rgb(0, 174, 255);" >  Temperature - Sean Paul*</a>
-  </button>   
-<small style="color: rgba(0, 255, 170, 0.25);"><i> *Chosen by AI</i></small>
+  <h2 style="color: #00ffaa; text-align: center; margin-top: 50px;">Song of the week:</h2>
+  <button class="my-button">
+    <a href="https://open.spotify.com/track/0k2GOhqsrxDTAbFFSdNJjT" target="_blank" style="color: rgb(0, 174, 255);">
+      Temperature - Sean Paul*
+    </a>
+  </button>
+
+  <br>
+  <small style="color: rgba(0, 255, 170, 0.25);"><i>*Chosen by AI</i></small>
+
   <h2 style="color: #00ffaa; text-align: center; margin-top: 50px;">Upcoming Holidays:</h2>
-  <button class="my-button" style="color: #00ffaa;">Italy</button> <button class="my-button" style="color: #00ffaa;">Bulgaria</button>
-  
-<p><i>                © 2026 Stan's Portfolio; all rights reserved.
-  [V2] Changelog 1.1</i></p>
-                       
-  </div>
+  <button class="my-button">Italy</button>
+  <button class="my-button">Bulgaria</button>
 
- 
-
-
-  
-
+  <p><i>© 2026 Stan's Portfolio; all rights reserved.</i></p>
 </div>
+
 </body>
 </html>
