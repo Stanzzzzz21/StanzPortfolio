@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="code.png" type="image/x-icon">
+    <link rel="stylesheet" href="Style.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=location_on" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanzdev | Portfolio</title>
+</head>
+<canvas id="bg"></canvas>
+<script src="Script.js"></script>
+
+
+
+<body> 
+  
+<footer class="footer">
+  
+  <a href="/about" class="smooth-scroll">About Me</a>
+  
+  <a href="/contact" class="smooth-scroll">Contact</a>
+  
+</footer>
+   
+  <br><br><br>
+    <div id="top"></div>
+   <h1> It’s Stan,<br><span>  Front-End</span> <br> Developer </h1> 
+
+   <p><span> <i> <b>"Learning, creating, and improving."</b></i></span></p>
+  
+   <br>
+<div id="about"></div>
+<div class="wide "><br><h3>About Me</h3>
+   <div class="intro">
+       <p>Hi, I'm Stan! Based in the UK, I specialize in building clean websites using HTML and CSS. I am soon expanding my skills to JavaScript!</p>
+   </div>
+<br>
+</div><div id="journey"></div>
+
+  <div class="wide ">
+    <div class="info-container">
+   
+      <div class="info" margin-top: 20px;>
+        
+      <h3>My Journey</h3>
+       <p> I started my journey in web development and coding in April 2026.</p>
+      </div><br>
+
+           <div class="info">
+          <h3><img  src="html.webp" height="30px">   HTML</h3>
+    <p>HTML is my first ever programming language. It is the foundation of any website. </p>
+</div>
+<div class="info">
+    <h3><img  src="CSS.webp" height="30px">   CSS</h3>
+    <p>CSS is used for styling and layout of web pages. </p>
+   </div>   
+    <div class="info">
+    <h3>⚙️JavaScript (soon!)</h3>
+    <p>JavaScript is a programming language, it is the "brain" of the website processes.</p>
+</div>
+</div>
+</div>
+
+<div class="wide"> <br><div class="commm"><h3> Services I use:</h3> 
+<div class="tag-container">
+  <span class="tag">Github</span>
+  <span class="tag">Vercel</span>
+  <span class="tag">Formspree</span>
+  <span class="tag">Recaptcha</span>
+  
+
+</div>
+
+   
+ 
+</div><br> </div> </div>
+
+<div id="contact"></div>
+  <div class="com"><h3>Contact me </h3>  <small>Status: Closed</small>
+  <div class="comm">
+    
+    <form action="https://formspree.io/f/xaqzeyyy" method="POST">
+
+  <label><br>
+    Your email:<br><br>
+    <input type="email" name="email">
+  </label> 
+  <label><br><br>
+    Message: <br><br>
+    <textarea name="message"></textarea><br><br>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send*</button>
+ <br><br>
+</form>
+ 
+  </div>
+   
+</div> 
+
+<div class="copyright">
+    <p><b>&copy; Stanzdev 2026. All rights reserved.</b></p>
+    <small>Hand made by a Bulgarian 🇧🇬  </small> <BR>
+ <a href="#top">Home</a>
+  <a href="#about"><b>About Me</b></a>
+  <a href="#journey"><b>My Journey</b></a>
+  <a href="#contact"><b>Contact</b></a>
+  <a href="statuspage-main/Status.html"> <b>Website Status</b> </a>
+
+    <br>
+   <a href="https://discord.com/users/876731494805155851">
+  <img src="Discord.png" height="40" alt="Discord User">
+</a>
+
+    
+     
+    <p>*Spam, troll and inappropriate submissions wont be recived, they will just be flagged and deleted! Doing that will get you blocked from commissions and contact requests. </p>
+</div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // Function to handle scrolling and URL update
+    function handleNavigation(targetId) {
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Update URL without reloading (e.g., /about)
+        window.history.pushState({}, '', '/' + targetId);
+      }
+    }
+
+    // 1. Intercept clicks on your footer links
+    document.querySelectorAll('.footer a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault(); // Stop page reload
+        const href = this.getAttribute('href'); // e.g., "/about"
+        const targetId = href.replace('/', ''); // e.g., "about"
+        handleNavigation(targetId);
+      });
+    });
+
+    // 2. Handle page load (if user refreshes on /about)
+    const path = window.location.pathname.replace('/', '');
+    if (path) {
+      // Small delay to ensure CSS/Layout is ready
+      setTimeout(() => {
+        const element = document.getElementById(path);
+        if (element) element.scrollIntoView();
+      }, 100);
+    }
+
+    // 3. Handle Back/Forward browser buttons
+    window.addEventListener('popstate', function() {
+      const path = window.location.pathname.replace('/', '');
+      if (path) {
+        const element = document.getElementById(path);
+        if (element) element.scrollIntoView();
+      }
+    });
+  });
+</script>   
+</body>
+</html>
